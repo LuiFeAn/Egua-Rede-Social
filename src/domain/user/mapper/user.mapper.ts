@@ -5,6 +5,7 @@ export default class UserMapper {
     return {
       id: user.id,
       email: user.email,
+      password: user.password,
       username: user.username,
       nickname: user.nickname,
       age: user.age,
