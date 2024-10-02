@@ -2,6 +2,7 @@ import {
   IsEmail,
   IsInt,
   IsNotEmpty,
+  IsStrongPassword,
   Max,
   Min,
   validateSync,
@@ -37,6 +38,20 @@ export default class UserValidator extends Validator<User> {
       @Max(100, { message: 'The maximum age is 100 years' })
       age: number;
 
+      @IsStrongPassword(
+        {
+          minLength: 9,
+          minNumbers: 1,
+          minUppercase: 1,
+          minSymbols: 1,
+        },
+        {
+          message:
+            'The password must be 9 characteres, 1 number, 1 special character and 1 upperCase',
+        },
+      )
+      password: string;
+
       @IsNotEmpty({ message: 'The nickname is required' })
       nickname: string;
     }
@@ -44,6 +59,7 @@ export default class UserValidator extends Validator<User> {
     return Object.assign(new UserValidation(), {
       id: user.id,
       username: user.username,
+      password: user.password,
       email: user.email,
       age: user.age,
       nickname: user.nickname,
