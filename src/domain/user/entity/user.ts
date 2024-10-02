@@ -1,6 +1,9 @@
 import RootEntity from '@domain/@shared/entity/root-entity';
 import UserValidatorFactory from '../factory/user.validation.factory';
 import IUser from './user.interface';
+import { Post } from '@domain/post/entity/post';
+import { randomUUID } from 'crypto';
+import { PostFactory } from '@domain/post/factory/post.factory';
 
 export class User extends RootEntity {
   private _username: string;
@@ -20,9 +23,44 @@ export class User extends RootEntity {
     this._nickname = nickname;
     this.validate();
   }
-
   validate() {
     UserValidatorFactory.create().validate(this);
+  }
+  createPost(content: string) {
+    return PostFactory.postWithId({
+      userId: this.id,
+      content,
+    });
+  }
+  follow(user: User) {
+    user.setFollow();
+  }
+
+  unfollow(user: User) {
+    user.setUnfollow();
+  }
+  likePost(post: Post) {
+    post.addLike(this.id);
+  }
+
+  removeLike(post: Post) {
+    post.removeLike(this.id);
+  }
+
+  deslikePost(post: Post) {
+    post.addDeslike(this.id);
+  }
+
+  removeDeslike(post: Post) {
+    post.removeDeslike(this.id);
+  }
+
+  private setFollow() {
+    this._followers += 1;
+  }
+
+  private setUnfollow() {
+    this._followers -= 1;
   }
 
   get username() {
