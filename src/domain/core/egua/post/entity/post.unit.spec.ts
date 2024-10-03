@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
 import { Post } from './post';
 import { PostMapper } from '../mapper/post.mapper';
-describe('Post Unit Tests', () => {
+describe('PostEntity Unit Tests', () => {
   it('Should create a post instance', () => {
     const input = {
       id: randomUUID(),

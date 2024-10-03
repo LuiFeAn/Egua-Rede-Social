@@ -1,10 +1,8 @@
 import RootEntity from '@domain/@shared/entity/root-entity';
 import UserValidatorFactory from '../factory/user.validation.factory';
 import IUser from './user.interface';
-import { Post } from '@domain/post/entity/post';
-import { randomUUID } from 'crypto';
-import { PostFactory } from '@domain/post/factory/post.factory';
-
+import { Post } from '../../post/entity/post';
+import { PostFactory } from '../../post/factory/post.factory';
 export class User extends RootEntity {
   private _username: string;
   private _email: string;

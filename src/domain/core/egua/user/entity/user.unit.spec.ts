@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
 import UserMapper from '../mapper/user.mapper';
 import { User } from './user';
-import { Post } from '@domain/post/entity/post';
+import { Post } from '../../post/entity/post';
 describe('UserEntity unit tests', () => {
   it('Should create a User', () => {
     const input = {
@@ -151,7 +151,7 @@ describe('UserEntity unit tests', () => {
     expect(post.likes).toBe(1);
   });
 
-  it('Should remove a like from Post', () => {
+  it('Should remove a like from post', () => {
     const post = new Post({
       id: randomUUID(),
       userId: randomUUID(),

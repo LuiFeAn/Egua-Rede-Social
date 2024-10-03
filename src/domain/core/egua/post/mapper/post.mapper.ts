@@ -1,5 +1,4 @@
 import { Post } from '../entity/post';
-
 export class PostMapper {
   public static toOutput(post: Post) {
     return {

@@ -1,6 +1,5 @@
 import Validator from '@domain/@shared/validation/abstract.validator';
 import { Post } from '../entity/post';
-
 export default class PostValidator extends Validator<Post> {
   validate(entity: Post): void {
     if (!(entity.content.length >= 0 && entity.content.length <= 550)) {
