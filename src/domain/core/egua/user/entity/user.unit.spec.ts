@@ -3,7 +3,7 @@ import UserMapper from '../mapper/user.mapper';
 import { User } from './user';
 import { Post } from '../../post/entity/post';
 describe('UserEntity unit tests', () => {
-  it('Should create a User', () => {
+  it('Should create a user', () => {
     const input = {
       id: randomUUID(),
       username: 'Luis Fernando',
@@ -128,7 +128,7 @@ describe('UserEntity unit tests', () => {
     );
   });
 
-  it('Should add Like in a post', () => {
+  it('Should add like in a post', () => {
     const post = new Post({
       id: randomUUID(),
       userId: randomUUID(),
@@ -146,7 +146,7 @@ describe('UserEntity unit tests', () => {
 
     const user = new User(input);
 
-    user.likePost(post);
+    user.like(post);
 
     expect(post.likes).toBe(1);
   });
@@ -169,7 +169,7 @@ describe('UserEntity unit tests', () => {
 
     const user = new User(input);
 
-    user.likePost(post);
+    user.like(post);
 
     expect(post.likes).toBe(1);
 
@@ -196,7 +196,7 @@ describe('UserEntity unit tests', () => {
 
     const user = new User(input);
 
-    user.deslikePost(post);
+    user.deslike(post);
 
     expect(post.deslikes).toBe(1);
   });
@@ -219,7 +219,7 @@ describe('UserEntity unit tests', () => {
 
     const user = new User(input);
 
-    user.deslikePost(post);
+    user.deslike(post);
 
     expect(post.deslikes).toBe(1);
 
@@ -228,9 +228,11 @@ describe('UserEntity unit tests', () => {
     expect(post.deslikes).toBe(0);
   });
 
-  it('Should follow a user', () => {
+  it('Should throw a error if user follow yourself', () => {
+    const uuid1 = randomUUID();
+
     const input1 = {
-      id: randomUUID(),
+      id: uuid1,
       username: 'Luis Fernando',
       password: 'Str0ngP@ssword12',
       email: 'teste@email.com',
@@ -238,37 +240,19 @@ describe('UserEntity unit tests', () => {
       nickname: 'LuiFeAn',
     };
 
-    const input2 = {
-      id: randomUUID(),
-      username: 'Erick Wendel',
-      password: 'Str0ngP@ssword12',
-      email: 'erickWendel@email.com',
-      age: 24,
-      nickname: 'LuiFeAn',
-    };
-
-    const input3 = {
-      id: randomUUID(),
-      username: 'Uncle Bob',
-      password: 'Str0ngP@ssword12',
-      email: 'unclebob@email.com',
-      age: 24,
-      nickname: 'LuiFeAn',
-    };
-
     const user1 = new User(input1);
-    const user2 = new User(input2);
-    const user3 = new User(input3);
 
-    user1.follow(user2);
-    user3.follow(user2);
-
-    expect(user2.followers).toBe(2);
+    expect(() => {
+      user1.follow(user1);
+    }).toThrow('You cant follow yourself');
   });
+  it('Should follow a user', () => {
+    const uuid1 = randomUUID();
+    const uuid2 = randomUUID();
+    const uuid3 = randomUUID();
 
-  it('Should unfollow a user', () => {
     const input1 = {
-      id: randomUUID(),
+      id: uuid1,
       username: 'Luis Fernando',
       password: 'Str0ngP@ssword12',
       email: 'teste@email.com',
@@ -277,7 +261,7 @@ describe('UserEntity unit tests', () => {
     };
 
     const input2 = {
-      id: randomUUID(),
+      id: uuid2,
       username: 'Erick Wendel',
       password: 'Str0ngP@ssword12',
       email: 'erickWendel@email.com',
@@ -286,7 +270,7 @@ describe('UserEntity unit tests', () => {
     };
 
     const input3 = {
-      id: randomUUID(),
+      id: uuid3,
       username: 'Uncle Bob',
       password: 'Str0ngP@ssword12',
       email: 'unclebob@email.com',
@@ -301,10 +285,64 @@ describe('UserEntity unit tests', () => {
     user1.follow(user2);
     user3.follow(user2);
 
+    expect(user1.usersFollowing).toHaveLength(1);
+    expect(user3.usersFollowing).toHaveLength(1);
+
     expect(user2.followers).toBe(2);
+    expect(user2.usersFollowers).toHaveLength(2);
+    expect(user2.usersFollowers).toEqual([uuid1, uuid3]);
+  });
+  it('Should unfollow a user', () => {
 
-    user1.unfollow(user2);
+    const uuid1 = randomUUID();
+    const uuid2 = randomUUID();
+    const uuid3 = randomUUID();
+    
+    const input1 = {
+      id: uuid1,
+      username: 'Luis Fernando',
+      password: 'Str0ngP@ssword12',
+      email: 'teste@email.com',
+      age: 24,
+      nickname: 'LuiFeAn',
+    };
 
-    expect(user2.followers).toBe(1);
+    const input2 = {
+      id: uuid2,
+      username: 'Erick Wendel',
+      password: 'Str0ngP@ssword12',
+      email: 'erickWendel@email.com',
+      age: 24,
+      nickname: 'LuiFeAn',
+    };
+
+    const input3 = {
+      id: uuid3,
+      username: 'Uncle Bob',
+      password: 'Str0ngP@ssword12',
+      email: 'unclebob@email.com',
+      age: 24,
+      nickname: 'LuiFeAn',
+    };
+
+    const user1 = new User(input1);
+    const user2 = new User(input2);
+    const user3 = new User(input3);
+
+    user1.follow(user3);
+    user2.follow(user3);
+
+    expect(user1.usersFollowing).toHaveLength(1);
+    expect(user2.usersFollowing).toHaveLength(1);
+
+    expect(user3.usersFollowers).toHaveLength(2);
+    expect(user3.followers).toBe(2);
+
+    user1.unfollow(user3);
+
+    expect(user1.usersFollowing).toHaveLength(0);
+
+    expect(user3.usersFollowers).toHaveLength(1);
+    expect(user3.followers).toBe(1);
   });
 });
