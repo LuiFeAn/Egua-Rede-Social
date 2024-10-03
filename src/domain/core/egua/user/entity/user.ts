@@ -3,6 +3,7 @@ import UserValidatorFactory from '../factory/user.validation.factory';
 import IUser from './user.interface';
 import { Post } from '../../post/entity/post';
 import { PostFactory } from '../../post/factory/post.factory';
+import { Password } from './value_object/password/password';
 export class User extends RootEntity {
   private _username: string;
   private _email: string;
@@ -10,7 +11,7 @@ export class User extends RootEntity {
   private _nickname: string;
   private _following: number = 0;
   private _followers: number = 0;
-  private _password: string;
+  private _password: Password;
   private _usersFollowing: string[] = [];
   private _usersFollowers: string[] = [];
 

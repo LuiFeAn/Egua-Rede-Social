@@ -2,12 +2,13 @@ import { randomUUID } from 'crypto';
 import UserMapper from '../mapper/user.mapper';
 import { User } from './user';
 import { Post } from '../../post/entity/post';
+import { Password } from './value_object/password/password';
 describe('UserEntity unit tests', () => {
   it('Should create a user', () => {
     const input = {
       id: randomUUID(),
       username: 'Luis Fernando',
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 24,
       nickname: 'LuiFeAn',
@@ -23,7 +24,7 @@ describe('UserEntity unit tests', () => {
     const input = {
       id: null,
       username: 'Luis Fernando',
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 24,
       nickname: 'LuiFeAn',
@@ -38,7 +39,7 @@ describe('UserEntity unit tests', () => {
     const input = {
       id: randomUUID(),
       username: null,
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 24,
       nickname: 'LuiFeAn',
@@ -53,7 +54,7 @@ describe('UserEntity unit tests', () => {
     const input = {
       id: randomUUID(),
       username: null,
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       email: 'testexxxemail.com',
       age: 24,
       nickname: 'LuiFeAn',
@@ -67,7 +68,7 @@ describe('UserEntity unit tests', () => {
   it('Should throw an error if age is invalid', () => {
     const input = {
       id: randomUUID(),
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       username: 'Luis Fernando',
       email: 'teste@email.com',
       age: null,
@@ -84,7 +85,7 @@ describe('UserEntity unit tests', () => {
   it('Should throw an error if the minimum age is not 18 years', () => {
     const input = {
       id: randomUUID(),
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       username: 'Luis Fernando',
       email: 'teste@email.com',
       age: 15,
@@ -100,7 +101,7 @@ describe('UserEntity unit tests', () => {
     const input = {
       id: randomUUID(),
       username: 'Luis Fernando',
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 101,
       nickname: 'LuiFeAn',
@@ -109,23 +110,6 @@ describe('UserEntity unit tests', () => {
     expect(() => {
       new User(input);
     }).toThrow('UserInstance: The maximum age is 100 years');
-  });
-
-  it('Should throw an error if password is invalid', () => {
-    const input = {
-      id: randomUUID(),
-      password: 'insecurePassword',
-      username: 'Luis Fernando',
-      email: 'teste@email.com',
-      age: 101,
-      nickname: 'LuiFeAn',
-    };
-
-    expect(() => {
-      new User(input);
-    }).toThrow(
-      'UserInstance: The password must be 9 characteres, 1 number, 1 special character and 1 upperCase',
-    );
   });
 
   it('Should add like in a post', () => {
@@ -138,7 +122,7 @@ describe('UserEntity unit tests', () => {
     const input = {
       id: randomUUID(),
       username: 'Luis Fernando',
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 24,
       nickname: 'LuiFeAn',
@@ -161,7 +145,7 @@ describe('UserEntity unit tests', () => {
     const input = {
       id: randomUUID(),
       username: 'Luis Fernando',
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 24,
       nickname: 'LuiFeAn',
@@ -188,7 +172,7 @@ describe('UserEntity unit tests', () => {
     const input = {
       id: randomUUID(),
       username: 'Luis Fernando',
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 24,
       nickname: 'LuiFeAn',
@@ -211,7 +195,7 @@ describe('UserEntity unit tests', () => {
     const input = {
       id: randomUUID(),
       username: 'Luis Fernando',
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 24,
       nickname: 'LuiFeAn',
@@ -234,7 +218,7 @@ describe('UserEntity unit tests', () => {
     const input1 = {
       id: uuid1,
       username: 'Luis Fernando',
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 24,
       nickname: 'LuiFeAn',
@@ -254,7 +238,7 @@ describe('UserEntity unit tests', () => {
     const input1 = {
       id: uuid1,
       username: 'Luis Fernando',
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 24,
       nickname: 'LuiFeAn',
@@ -263,7 +247,7 @@ describe('UserEntity unit tests', () => {
     const input2 = {
       id: uuid2,
       username: 'Erick Wendel',
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       email: 'erickWendel@email.com',
       age: 24,
       nickname: 'LuiFeAn',
@@ -272,7 +256,7 @@ describe('UserEntity unit tests', () => {
     const input3 = {
       id: uuid3,
       username: 'Uncle Bob',
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       email: 'unclebob@email.com',
       age: 24,
       nickname: 'LuiFeAn',
@@ -293,15 +277,14 @@ describe('UserEntity unit tests', () => {
     expect(user2.usersFollowers).toEqual([uuid1, uuid3]);
   });
   it('Should unfollow a user', () => {
-
     const uuid1 = randomUUID();
     const uuid2 = randomUUID();
     const uuid3 = randomUUID();
-    
+
     const input1 = {
       id: uuid1,
       username: 'Luis Fernando',
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 24,
       nickname: 'LuiFeAn',
@@ -310,7 +293,7 @@ describe('UserEntity unit tests', () => {
     const input2 = {
       id: uuid2,
       username: 'Erick Wendel',
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       email: 'erickWendel@email.com',
       age: 24,
       nickname: 'LuiFeAn',
@@ -319,7 +302,7 @@ describe('UserEntity unit tests', () => {
     const input3 = {
       id: uuid3,
       username: 'Uncle Bob',
-      password: 'Str0ngP@ssword12',
+      password: new Password('Str0ngP@ssword12'),
       email: 'unclebob@email.com',
       age: 24,
       nickname: 'LuiFeAn',
