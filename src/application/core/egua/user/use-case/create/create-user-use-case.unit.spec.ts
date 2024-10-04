@@ -9,6 +9,10 @@ const userRepo = {
   update: jest.fn(),
   emailExists: jest.fn(),
   nicknameExists: jest.fn(),
+  addFollower: jest.fn(),
+  removeFollower: jest.fn(),
+  addFollowing: jest.fn(),
+  removeFollowing: jest.fn(),
 };
 
 describe('CreateUserUseCase Unit Tests', () => {
