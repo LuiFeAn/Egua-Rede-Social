@@ -1,5 +1,4 @@
 import { User } from '../entity/user';
-
 export default class UserMapper {
   public static toOutput(user: User) {
     return {

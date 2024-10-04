@@ -1,12 +1,14 @@
 import { IUserRepository } from 'src/infra/core/egua/user/repositories/user.repository.interface';
 import ICreateUserInputDto from './dto/input.dto';
-import RootUseCase from 'src/application/@shared/use-case/root.use-case';
+import RootUseCase from '@application/@shared/use-case/root.use-case';
 import { UserFactory } from '@domain/core/egua/user/factory/user.factory';
+import { ICreateUserOutputDto } from './dto/output.dto';
+import UserMapper from '@domain/core/egua/user/mapper/user.mapper';
 export default class CreateUserUseCase extends RootUseCase {
   constructor(private readonly userRepo: IUserRepository) {
     super();
   }
-  async execute(dto: ICreateUserInputDto) {
+  async execute(dto: ICreateUserInputDto): Promise<ICreateUserOutputDto> {
     const promises = [
       this.userRepo.emailExists(dto.email),
       this.userRepo.nicknameExists(dto.nickname),
@@ -33,5 +35,7 @@ export default class CreateUserUseCase extends RootUseCase {
     const user = UserFactory.create(dto);
 
     await this.userRepo.create(user);
+
+    return UserMapper.toOutput(user);
   }
 }
