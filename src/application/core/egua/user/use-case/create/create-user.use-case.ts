@@ -1,4 +1,4 @@
-import { IUserRepository } from 'src/infra/core/egua/user/repositories/user.repository.interface';
+import { IUserRepository } from '@domain/core/egua/user/repository/user.repository.interface';
 import ICreateUserInputDto from './dto/input.dto';
 import RootUseCase from '@application/@shared/use-case/root.use-case';
 import { UserFactory } from '@domain/core/egua/user/factory/user.factory';
