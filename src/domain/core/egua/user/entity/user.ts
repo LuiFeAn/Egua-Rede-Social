@@ -4,11 +4,12 @@ import IUser from './user.interface';
 import { Post } from '../../post/entity/post';
 import { PostFactory } from '../../post/factory/post.factory';
 import { Password } from './value_object/password/password';
+import Nickname from './value_object/nickname/nickname';
 export class User extends RootEntity {
   private _username: string;
   private _email: string;
   private _age: number;
-  private _nickname: string;
+  private _nickname: Nickname;
   private _password: Password;
 
   constructor({ id, username, email, age, nickname, password }: IUser) {
