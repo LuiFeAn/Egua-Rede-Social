@@ -11,6 +11,7 @@
 
   "moduleNameMapper": {
     "^@domain/(.*)$": "<rootDir>/domain/$1",
+    "^@utils/(.*)$": "<rootDir>/utils/$1",
     "^@shared/(.*)$": "<rootDir>/shared/$1"
   }
 }
