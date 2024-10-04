@@ -34,6 +34,8 @@ export default class CreateUserUseCase extends RootUseCase {
 
     const user = UserFactory.create(dto);
 
+    user.password.hashPassword();
+
     await this.userRepo.create(user);
 
     return UserMapper.toOutput(user);
