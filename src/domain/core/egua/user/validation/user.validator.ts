@@ -8,13 +8,14 @@ import {
 } from 'class-validator';
 import Validator from '@domain/@shared/validation/abstract.validator';
 import { User } from '../entity/user';
+import mapClassValidatorErrors from '@utils/mapClassValidatorErrors';
 export default class UserValidator extends Validator<User> {
   validate(user: User): void {
     const errors = validateSync(this.map(user));
     errors.forEach((error) => {
       this.notification.add({
         context: 'UserInstance',
-        error: Object.values(error.constraints).join(','),
+        error: mapClassValidatorErrors(error),
       });
     });
     this.notification.issue();

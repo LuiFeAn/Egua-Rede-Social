@@ -1,13 +1,14 @@
 import Validator from '@domain/@shared/validation/abstract.validator';
 import { Password } from '../password';
 import { IsStrongPassword, validateSync } from 'class-validator';
+import mapClassValidatorErrors from '@utils/mapClassValidatorErrors';
 export default class PasswordValidator extends Validator<Password> {
   validate(password: Password): void {
     const errors = validateSync(this.map(password));
     errors.forEach((error) => {
       this.notification.add({
         context: 'PasswordInstance',
-        error: Object.values(error.constraints).join(','),
+        error: mapClassValidatorErrors(error),
       });
     });
     this.notification.issue();
