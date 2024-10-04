@@ -2,6 +2,7 @@ import { randomUUID } from 'crypto';
 import { Follower } from './follower';
 import { Following } from '../../following/entity/following';
 import { Password } from '../../user/entity/value_object/password/password';
+import Nickname from '../../user/entity/value_object/nickname/nickname';
 describe('FollowerEntity Unit Tests', () => {
   it('Should throw a error if user already follow a user', () => {
     const input1 = {
@@ -10,7 +11,7 @@ describe('FollowerEntity Unit Tests', () => {
       password: new Password('Str0ngP@ssword12'),
       email: 'testexxx@email.com',
       age: 24,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     const input2 = {
@@ -19,7 +20,7 @@ describe('FollowerEntity Unit Tests', () => {
       password: new Password('Str0ngP@ssword12'),
       email: 'testexxx@email.com',
       age: 24,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     const following = new Following(input2);
@@ -40,7 +41,7 @@ describe('FollowerEntity Unit Tests', () => {
       password: new Password('Str0ngP@ssword12'),
       email: 'testexxx@email.com',
       age: 24,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     const input2 = {
@@ -49,7 +50,7 @@ describe('FollowerEntity Unit Tests', () => {
       password: new Password('Str0ngP@ssword12'),
       email: 'testexxx@email.com',
       age: 24,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     const input3 = {
@@ -58,7 +59,7 @@ describe('FollowerEntity Unit Tests', () => {
       password: new Password('Str0ngP@ssword12'),
       email: 'testexxx@email.com',
       age: 24,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     const following1 = new Following(input2);
@@ -80,7 +81,7 @@ describe('FollowerEntity Unit Tests', () => {
       password: new Password('Str0ngP@ssword12'),
       email: 'testexxx@email.com',
       age: 24,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     const input2 = {
@@ -89,7 +90,7 @@ describe('FollowerEntity Unit Tests', () => {
       password: new Password('Str0ngP@ssword12'),
       email: 'testexxx@email.com',
       age: 24,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     const input3 = {
@@ -98,7 +99,7 @@ describe('FollowerEntity Unit Tests', () => {
       password: new Password('Str0ngP@ssword12'),
       email: 'testexxx@email.com',
       age: 24,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     const following1 = new Following(input2);

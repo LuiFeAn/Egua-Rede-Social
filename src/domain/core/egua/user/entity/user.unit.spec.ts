@@ -3,6 +3,7 @@ import UserMapper from '../mapper/user.mapper';
 import { User } from './user';
 import { Post } from '../../post/entity/post';
 import { Password } from './value_object/password/password';
+import Nickname from './value_object/nickname/nickname';
 describe('UserEntity unit tests', () => {
   it('Should create a user', () => {
     const input = {
@@ -11,7 +12,7 @@ describe('UserEntity unit tests', () => {
       password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 24,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     const user = UserMapper.toOutput(new User(input));
@@ -27,7 +28,7 @@ describe('UserEntity unit tests', () => {
       password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 24,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     expect(() => {
@@ -42,7 +43,7 @@ describe('UserEntity unit tests', () => {
       password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 24,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     expect(() => {
@@ -57,7 +58,7 @@ describe('UserEntity unit tests', () => {
       password: new Password('Str0ngP@ssword12'),
       email: 'testexxxemail.com',
       age: 24,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     expect(() => {
@@ -72,7 +73,7 @@ describe('UserEntity unit tests', () => {
       username: 'Luis Fernando',
       email: 'teste@email.com',
       age: null,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     expect(() => {
@@ -89,7 +90,7 @@ describe('UserEntity unit tests', () => {
       username: 'Luis Fernando',
       email: 'teste@email.com',
       age: 15,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     expect(() => {
@@ -104,7 +105,7 @@ describe('UserEntity unit tests', () => {
       password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 101,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     expect(() => {
@@ -125,7 +126,7 @@ describe('UserEntity unit tests', () => {
       password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 24,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     const user = new User(input);
@@ -148,7 +149,7 @@ describe('UserEntity unit tests', () => {
       password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 24,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     const user = new User(input);
@@ -175,7 +176,7 @@ describe('UserEntity unit tests', () => {
       password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 24,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     const user = new User(input);
@@ -198,7 +199,7 @@ describe('UserEntity unit tests', () => {
       password: new Password('Str0ngP@ssword12'),
       email: 'teste@email.com',
       age: 24,
-      nickname: 'LuiFeAn',
+      nickname: new Nickname('LuiFeAn'),
     };
 
     const user = new User(input);
