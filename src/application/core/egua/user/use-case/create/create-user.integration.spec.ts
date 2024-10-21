@@ -1,23 +1,37 @@
 import { randomUUID } from 'crypto';
 import CreateUserUseCase from './create-user.use-case';
+import { DataSource } from 'typeorm';
+import mysqlTestContainer from '@infra/@shared/db/test.contaner';
+import { UserPersistence } from '@infra/@shared/db/entities/user';
+import { UserTestContainerRepository } from '@infra/@shared/db/repositories/user.repository';
 
-const userRepo = {
-  create: jest.fn(),
-  findOne: jest.fn(),
-  findAll: jest.fn(),
-  delete: jest.fn(),
-  update: jest.fn(),
-  emailExists: jest.fn(),
-  nicknameExists: jest.fn(),
-  addFollower: jest.fn(),
-  removeFollower: jest.fn(),
-  addFollowing: jest.fn(),
-  removeFollowing: jest.fn(),
-};
+describe('CreateUserUseCase integration Tests', () => {
+  let userRepo: UserTestContainerRepository;
+  let dataSource: DataSource;
 
-describe('CreateUserUseCase Unit Tests', () => {
+  beforeAll(async () => {
+    const db = await mysqlTestContainer();
+    dataSource = new DataSource({
+      type: 'mysql',
+      host: db.host,
+      port: db.port,
+      username: db.username,
+      password: db.password,
+      database: db.database,
+      entities: [UserPersistence],
+      synchronize: true,
+    });
+    await dataSource.initialize();
+    userRepo = new UserTestContainerRepository(
+      dataSource.getRepository(UserPersistence),
+    );
+  }, 10000);
+
+  afterAll(async () => {
+    await dataSource.destroy();
+  });
+
   it('Should throw an error if email already exists', async () => {
-    userRepo.emailExists.mockResolvedValue(true);
     const dto = {
       id: randomUUID(),
       username: 'Luis Fernando',
@@ -26,7 +40,10 @@ describe('CreateUserUseCase Unit Tests', () => {
       age: 24,
       nickname: 'LuiFeA',
     };
+
     const createUserUseCase = new CreateUserUseCase(userRepo);
+
+    await createUserUseCase.execute(dto);
 
     await expect(createUserUseCase.execute(dto)).rejects.toThrow(
       'UserCreation: Email already exists',
@@ -34,8 +51,6 @@ describe('CreateUserUseCase Unit Tests', () => {
   });
 
   it('Should throw an error if nickname already exists', async () => {
-    userRepo.emailExists.mockResolvedValue(false);
-    userRepo.nicknameExists.mockResolvedValue(true);
     const dto = {
       id: randomUUID(),
       username: 'Luis Fernando',
@@ -52,8 +67,6 @@ describe('CreateUserUseCase Unit Tests', () => {
   });
 
   it('Should create a new User', async () => {
-    userRepo.emailExists.mockResolvedValue(false);
-    userRepo.nicknameExists.mockResolvedValue(false);
     const dto = {
       id: randomUUID(),
       username: 'Luis Fernando',
