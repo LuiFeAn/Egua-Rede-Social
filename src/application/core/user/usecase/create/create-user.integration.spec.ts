@@ -1,12 +1,12 @@
 import { randomUUID } from 'crypto';
 import CreateUserUseCase from './create-user.use-case';
 import { DataSource } from 'typeorm';
-import mysqlTestContainer from '@infra/@shared/db/test.contaner';
-import { UserPersistence } from '@infra/@shared/db/entities/user';
-import { UserTestContainerRepository } from '@infra/@shared/db/repositories/user.repository';
+import mysqlTestContainer from '@infra/@shared/db/mysql/test-container';
+import { UserModel } from '@infra/@shared/db/models/user';
+import { UserRepository } from '@infra/core/user/repositories/user.repository';
 
 describe('CreateUserUseCase integration Tests', () => {
-  let userRepo: UserTestContainerRepository;
+  let userRepo: UserRepository;
   let dataSource: DataSource;
 
   beforeAll(async () => {
@@ -18,14 +18,12 @@ describe('CreateUserUseCase integration Tests', () => {
       username: db.username,
       password: db.password,
       database: db.database,
-      entities: [UserPersistence],
+      entities: [UserModel],
       synchronize: true,
     });
     await dataSource.initialize();
-    userRepo = new UserTestContainerRepository(
-      dataSource.getRepository(UserPersistence),
-    );
-  }, 10000);
+    userRepo = new UserRepository(dataSource.getRepository(UserModel));
+  }, 30000);
 
   afterAll(async () => {
     await dataSource.destroy();

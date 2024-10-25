@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import { Following } from '../../following/entity/following';
+import { Following } from './following';
 import { Password } from '../../user/entity/value_object/password/password';
 import Nickname from '../../user/entity/value_object/nickname/nickname';
 describe('FollowerEntity Unit Tests', () => {

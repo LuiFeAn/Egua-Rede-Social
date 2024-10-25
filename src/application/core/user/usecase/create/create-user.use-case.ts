@@ -1,9 +1,9 @@
-import { IUserRepository } from '@domain/core/egua/user/repository/user.repository.interface';
+import { IUserRepository } from '@domain/core/user/repository/user.repository.interface';
 import ICreateUserInputDto from './dto/input.dto';
 import RootUseCase from '@application/@shared/use-case/root.use-case';
-import { UserFactory } from '@domain/core/egua/user/factory/user.factory';
+import { UserFactory } from '@domain/core/user/factory/user.factory';
 import { ICreateUserOutputDto } from './dto/output.dto';
-import UserMapper from '@domain/core/egua/user/mapper/user.mapper';
+import UserMapper from '@domain/core/user/mapper/user.mapper';
 export default class CreateUserUseCase extends RootUseCase {
   constructor(private readonly userRepo: IUserRepository) {
     super();

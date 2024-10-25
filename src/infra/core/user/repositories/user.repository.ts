@@ -2,14 +2,14 @@ import {
   IFindAllInputDto,
   IFindAllOutputDto,
 } from '@domain/@shared/repository/interfaces';
-import { User } from '@domain/core/egua/user/entity/user';
-import { UserPersistence } from '../entities/user';
-import { IUserRepository } from './../../../../domain/core/egua/user/repository/user.repository.interface';
+import { User } from '@domain/core/user/entity/user';
 import { Repository } from 'typeorm';
-import { UserFactory } from '@domain/core/egua/user/factory/user.factory';
+import { UserFactory } from '@domain/core/user/factory/user.factory';
+import { IUserRepository } from '@domain/core/user/repository/user.repository.interface';
+import { UserModel } from '@infra/@shared/db/models/user';
 
-export class UserTestContainerRepository implements IUserRepository {
-  constructor(private readonly repository: Repository<UserPersistence>) {}
+export class UserRepository implements IUserRepository {
+  constructor(private readonly repository: Repository<UserModel>) {}
   emailExists(email: string): Promise<boolean> {
     return this.repository.existsBy({
       email,
@@ -31,8 +31,8 @@ export class UserTestContainerRepository implements IUserRepository {
       username: entity.username,
     });
   }
-  async findOne(id: string): Promise<User> {
-    const entity = await this.repository.findOneBy({
+  async findById(id: string): Promise<User> {
+    const entity = await this.repository.findByIdBy({
       id,
     });
     return UserFactory.create({

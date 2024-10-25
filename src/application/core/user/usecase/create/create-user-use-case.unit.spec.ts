@@ -3,7 +3,7 @@ import CreateUserUseCase from './create-user.use-case';
 
 const userRepo = {
   create: jest.fn(),
-  findOne: jest.fn(),
+  findById: jest.fn(),
   findAll: jest.fn(),
   delete: jest.fn(),
   update: jest.fn(),
